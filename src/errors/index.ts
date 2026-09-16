@@ -1,6 +1,3 @@
-// src/errors/index.ts
-
-// Clase base para nuestros errores
 export class AppError extends Error {
   constructor(public message: string, public code: string) {
     super(message);
@@ -36,10 +33,6 @@ export class GitHubAPIError extends AppError {
   }
 }
 
-/**
- * Esta función transforma un error técnico en un mensaje de lenguaje natural
- * para que el LLM pueda explicárselo al usuario de forma clara.
- */
 export function formatErrorForLLM(error: unknown): string {
   if (error instanceof ValidationError) {
     return `Error de validación: ${error.message}. Por favor, corrige los datos e intenta de nuevo.`;
@@ -63,7 +56,6 @@ export function formatErrorForLLM(error: unknown): string {
     return `Error en la API de GitHub: ${error.message}`;
   }
   
-  // Fallback para errores desconocidos
   const errorMessage = error instanceof Error ? error.message : String(error);
   return `Ocurrió un error inesperado: ${errorMessage}`;
 }
