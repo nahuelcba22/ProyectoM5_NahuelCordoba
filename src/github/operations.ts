@@ -19,8 +19,8 @@ function handleGithubError(err: any): never {
   throw err;
 }
 
-
 export async function createRepository(input: CreateRepositoryInput) {
+  // Ya corregido:
   logger.info(`Creando repositorio: ${input.name}`);
   const octokit = getGithubClient();
   try {
@@ -58,7 +58,8 @@ export async function listRepositories(input: ListRepositoriesInput) {
 }
 
 export async function createIssue(input: CreateIssueInput) {
-  logger.info(`Creando issue en \({input.owner}/\){input.repo}`);
+  // Ya corregido:
+  logger.info(`Creando issue en ${input.owner}/${input.repo}`);
   const octokit = getGithubClient();
   try {
     const response = await octokit.rest.issues.create({
@@ -78,7 +79,8 @@ export async function createIssue(input: CreateIssueInput) {
 }
 
 export async function listIssues(input: ListIssuesInput) {
-  logger.info(`Listando issues de \({input.owner}/\){input.repo}`);
+  // Ya corregido:
+  logger.info(`Listando issues de ${input.owner}/${input.repo}`);
   const octokit = getGithubClient();
   try {
     const response = await octokit.rest.issues.listForRepo({
@@ -98,10 +100,10 @@ export async function listIssues(input: ListIssuesInput) {
 }
 
 export async function createCommit(input: CreateCommitInput) {
-  logger.info(`Creando commit en \({input.owner}/\){input.repo} [${input.branch}]`);
+  // Ya corregido:
+  logger.info(`Creando commit en ${input.owner}/${input.repo} [${input.branch}]`);
   const octokit = getGithubClient();
   try {
-   
     const refResp = await octokit.rest.git.getRef({
       owner: input.owner,
       repo: input.repo,
@@ -150,9 +152,10 @@ export async function createCommit(input: CreateCommitInput) {
       sha: commitResp.data.sha
     });
 
+  
     return {
       commitSha: commitResp.data.sha,
-      url: `https://github.com/\({input.owner}/\){input.repo}/commit/${commitResp.data.sha}`
+      url: `https://github.com/${input.owner}/${input.repo}/commit/${commitResp.data.sha}`
     };
   } catch (err) {
     handleGithubError(err);

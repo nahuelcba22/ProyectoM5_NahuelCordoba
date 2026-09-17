@@ -4,7 +4,8 @@ const redactToken = (msg: string): string => {
 };
 
 const formatMessage = (level: string, msg: string) => {
-  return `[\({level}]\){redactToken(msg)}`;
+
+  return `[${level}] ${redactToken(msg)}`;
 };
 
 export const logger = {

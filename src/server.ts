@@ -104,7 +104,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     
   } catch (error) {
     const formattedMessage = formatErrorForLLM(error);
-    logger.error(`Error ejecutando tool [\({name}]:\){formattedMessage}`);
+    logger.error(`Error ejecutando tool [${name}]: ${formattedMessage}`);
     
     return {
       content: [{ type: "text", text: formattedMessage }],
